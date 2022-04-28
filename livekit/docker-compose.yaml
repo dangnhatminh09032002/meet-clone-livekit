@@ -1,20 +1,31 @@
 # LiveKit requires host networking, which is only available on Linux
 # This compose will not function correctly on Mac or Windows
 version: "3.9"
+
+networks:
+  proxy:
+    driver: bridge
+
 services:
   caddy:
+    container_name: caddy-service
     image: livekit/caddyl4
     command: run --config /etc/caddy.yaml --adapter yaml
     restart: unless-stopped
-    network_mode: "host"
+    networks:
+      - proxy
     volumes:
       - ./caddy.yaml:/etc/caddy.yaml
       - ./caddy_data:/data
   livekit:
+    container_name: livekit-service
     image: livekit/livekit-server:latest
     command: --config /etc/livekit.yaml
     restart: unless-stopped
-    network_mode: "host"
+    ports:
+      - "7880:7880"
+    networks:
+      - proxy
     volumes:
       - ./livekit.yaml:/etc/livekit.yaml
   # redis:
