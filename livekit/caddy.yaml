@@ -9,26 +9,16 @@ apps:
   tls:
     certificates:
       automate:
-        - livekit.meetClone.com
-        - livekit-turn.meetClone.com
+        - webrtc-livekit.site
   layer4:
     servers:
       main:
         listen: [":443"]
         routes:
           - match:
-            - tls:
-                sni:
-                  - "livekit-turn.meetClone.com"
-            handle:
-              - handler: tls
-              - handler: proxy
-                upstreams:
-                  - dial: ["localhost:5349"]
-          - match:
               - tls:
                   sni:
-                    - "livekit.meetClone.com"
+                    - "webrtc-livekit.site"
             handle:
               - handler: tls
                 connection_policies:

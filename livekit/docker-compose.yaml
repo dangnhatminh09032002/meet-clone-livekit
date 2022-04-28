@@ -17,9 +17,9 @@ services:
     network_mode: "host"
     volumes:
       - ./livekit.yaml:/etc/livekit.yaml
-  redis:
-    image: redis:6-alpine
-    command: redis-server /etc/redis.conf
-    network_mode: "host"
-    volumes:
-      - ./redis.conf:/etc/redis.conf
+  # redis:
+  #   image: redis:6-alpine
+  #   command: redis-server /etc/redis.conf
+  #   network_mode: "host"
+  #   volumes:
+  #     - ./redis.conf:/etc/redis.conf
